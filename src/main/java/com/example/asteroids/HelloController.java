@@ -2,6 +2,7 @@ package com.example.asteroids;
 
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -10,7 +11,9 @@ import javafx.scene.input.KeyEvent;
 public class HelloController {
 
     @FXML
-    private ImageView bg1, bg2, rocket, asteroid1, asteroid2, asteroid3;
+    private ImageView bg1, bg2, rocket, asteroid1, asteroid2, asteroid3,flame;
+    @FXML
+    private Group groupRocket;
 
     private double offset = 0;
     private double asteroid_1_x =  900+Math.random()*300;
@@ -22,6 +25,7 @@ public class HelloController {
         Image background = new Image(getClass().getResourceAsStream("/images/background.jpg"));
         Image imageAsteroid = new Image(getClass().getResourceAsStream("/images/asteroid.png"));
         rocket.setImage(new Image(getClass().getResourceAsStream("/images/rocket.png")));
+        flame.setImage(new Image (getClass().getResourceAsStream("/images/flame.png")));
 
         asteroid1.setImage(imageAsteroid);
         asteroid1.setLayoutY(Math.random()*540);
@@ -71,22 +75,21 @@ asteroid1.setRotate(asteroid_1_x);
             }
         };
         timer.start();
-
     }
 
     public void handleKeyPressed(KeyEvent keyEvent) {
 
-        if (keyEvent.getCode() == KeyCode.UP && rocket.getLayoutY() >=0){
-            rocket.setLayoutY(rocket.getLayoutY() - 10);
-            rocket.setRotate(75);
+        if (keyEvent.getCode() == KeyCode.UP && groupRocket.getLayoutY() >=0){
+            groupRocket.setLayoutY(groupRocket.getLayoutY() - 10);
+            groupRocket.setRotate(-15);
         }
-        if (keyEvent.getCode() == KeyCode.DOWN && rocket.getLayoutY() <=510){
-            rocket.setLayoutY(rocket.getLayoutY() + 10);
-            rocket.setRotate(105);
+        if (keyEvent.getCode() == KeyCode.DOWN && groupRocket.getLayoutY() <=510){
+            groupRocket .setLayoutY(groupRocket.getLayoutY() + 10);
+            groupRocket.setRotate(15);
         }
     }
 
     public void handleKeyReleased(KeyEvent keyEvent) {
-        rocket.setRotate(90);
+        groupRocket.setRotate(0);
     }
 }
