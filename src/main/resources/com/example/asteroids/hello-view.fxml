@@ -7,9 +7,9 @@
     <ImageView fx:id="bg1" fitWidth="900" fitHeight="600"/>
     <ImageView fx:id="bg2" fitWidth="900" fitHeight="600"/>
     <ImageView fx:id="rocket" rotate="90"  fitWidth="60" fitHeight="90" layoutX="100" layoutY="285"/>
-    <ImageView fx:id="asteroid1" fitWidth="90" fitHeight="60" />
-    <ImageView fx:id="asteroid2" fitWidth="90" fitHeight="60" />
-    <ImageView fx:id="asteroid3" fitWidth="90" fitHeight="60" />
+    <ImageView fx:id="asteroid1" rotate="90" fitWidth="90" fitHeight="60" />
+    <ImageView fx:id="asteroid2"   rotate="85 " fitWidth="90" fitHeight="60" />
+    <ImageView fx:id="asteroid3" rotate="45" fitWidth="90" fitHeight="60" />
 
 
 </AnchorPane>
