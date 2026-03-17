@@ -3,6 +3,7 @@ package com.example.asteroids;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -14,6 +15,8 @@ public class HelloController {
     private ImageView bg1, bg2, rocket, asteroid1, asteroid2, asteroid3,flame;
     @FXML
     private Group groupRocket;
+    @FXML
+    private Label lblGameOver;
 
     private double offset = 0;
     private double asteroid_1_x =  900+Math.random()*300;
@@ -22,8 +25,9 @@ public class HelloController {
 
     @FXML
     public void initialize() {
+        lblGameOver.setVisible(false);
         Image background = new Image(getClass().getResourceAsStream("/images/background.jpg"));
-        Image imageAsteroid = new Image(getClass().getResourceAsStream("/images/asteroid.png"));
+        Image imageAsteroid = new Image(getClass().getResourceAsStream("/images/img.png"));
         rocket.setImage(new Image(getClass().getResourceAsStream("/images/rocket.png")));
         flame.setImage(new Image (getClass().getResourceAsStream("/images/flame.png")));
 
@@ -40,6 +44,11 @@ public class HelloController {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                if(checkTouch()){
+                    lblGameOver.setVisible(true);
+                    return;
+                }
+
 
                 offset -= 1; // offset = offset - 1;
                 if (offset <= -900){
@@ -79,11 +88,11 @@ asteroid1.setRotate(asteroid_1_x);
 
     public void handleKeyPressed(KeyEvent keyEvent) {
 
-        if (keyEvent.getCode() == KeyCode.UP && groupRocket.getLayoutY() >=0){
+        if (keyEvent.getCode() == KeyCode.UP && groupRocket.getLayoutY() >=-300){
             groupRocket.setLayoutY(groupRocket.getLayoutY() - 10);
             groupRocket.setRotate(-15);
         }
-        if (keyEvent.getCode() == KeyCode.DOWN && groupRocket.getLayoutY() <=510){
+        if (keyEvent.getCode() == KeyCode.DOWN && groupRocket.getLayoutY() <=240){
             groupRocket .setLayoutY(groupRocket.getLayoutY() + 10);
             groupRocket.setRotate(15);
         }
@@ -91,5 +100,18 @@ asteroid1.setRotate(asteroid_1_x);
 
     public void handleKeyReleased(KeyEvent keyEvent) {
         groupRocket.setRotate(0);
+
     }
-}
+    public boolean checkTouch () {
+
+        if (groupRocket.getBoundsInParent().intersects(asteroid1.getBoundsInParent())) {
+            return true;
+        }
+        if (groupRocket.getBoundsInParent().intersects(asteroid2.getBoundsInParent())) {
+            return true;
+        }
+        if (groupRocket.getBoundsInParent().intersects(asteroid3.getBoundsInParent())) {
+            return true;
+        }
+        return false;
+    }}
